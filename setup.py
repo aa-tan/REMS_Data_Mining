@@ -38,20 +38,36 @@ def genFileList(matchList):
         json.dump(outList, outFile)
 
 
-def searchCategory(splitList, path):  # todo read from gen
-    categories = ["pressure"]
-    for item in splitList:
-        if item[1] == "LBL":
-            with open(path + item[0] + "." + item[1]) as f:
-                for line in f:
-                    if "= \"PRESSURE\"" in line:
-                        print("Pressure is found in {}".format(
-                            path + item[0] + item[1]))
+def getDataTypes():
+    dataTypes = []
+    with open(dataTypePath) as f:
+        dataTypes = json.load(f)
+        print dataTypes
+    return dataTypes
+
+
+def searchCategory():  # todo read from gen
+    categories = ["PRESSURE"]
+    fileList = []
+    mineLocation = {}
+    with open("./FileList/list.json") as f:
+        fileList = json.load(f)
+    for item in fileList:
+        with open(dataPath + item[0]) as labelFile:
+            for line in labelFile:
+                for category in categories:
+                    if "= \"{}\"".format(category) in line:
+                        print("{} is found in {}".format(category,
+                                                         dataPath + item[0]))
+                        mineLocation[category] = item[0]
 
 
 if __name__ == '__main__':
     dataPath = "./SampleData/"
+    dataTypePath = "./datatypes.json"
     fileList = getAllFiles(dataPath)
     split = splitName(fileList)
     matched = match(split)
     genFileList(matched)
+    getDataTypes()
+    # searchCategory()

@@ -1,9 +1,8 @@
-import lib
+import setup
 
 
 if __name__ == '__main__':
-    filePath = "./Data/"
-    files = getFiles(filePath)
-    splits = splitName(files)
-    matched = match(splits)
-    searchCategory(matched, filePath)
+    dataPath = "./SampleData/"
+    fileList = setup.getAllFiles(dataPath)
+    for item in fileList:
+        print(item)
