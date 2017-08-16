@@ -1,0 +1,134 @@
+PDS_VERSION_ID                   = PDS3
+
+/* FILE DATA ELEMENTS */
+
+RECORD_TYPE                      = FIXED_LENGTH
+RECORD_BYTES                     = 97
+FILE_RECORDS                     = 36352
+
+
+
+/* POINTERS TO DATA OBJECTS */
+
+^TABLE                           = "MS000RMH_00896227783_10C6M1.TAB"
+
+
+/* IDENTIFICATION DATA ELEMENTS */
+
+DATA_SET_ID                      = "PHX-M-MET-3-PT-RDR-V1.0"
+PRODUCT_ID                       = "MS000RMH_00896227783_10C6M1"
+PRODUCT_TYPE                     = RDR
+PRODUCT_VERSION_ID               = "V1.5 D-33236"
+RELEASE_ID                       = "0001"
+INSTRUMENT_HOST_ID               = PHX
+INSTRUMENT_HOST_NAME             = "PHOENIX"
+INSTRUMENT_ID                    = MET
+INSTRUMENT_TYPE                  = "IN SITU METEOROLOGY"
+LOCAL_TRUE_SOLAR_TIME            = "17:03:01"
+LOCAL_MEAN_SOLAR_TIME            = "16:49:31"
+MISSION_NAME                     = "PHOENIX"
+MISSION_PHASE_NAME               = "PRIMARY MISSION"
+PLANET_DAY_NUMBER                = 0
+PRODUCER_INSTITUTION_NAME        = "YORK UNIVERSITY"
+PRODUCT_CREATION_TIME            = 2008-06-05T06:55:30.357
+OPS_TOKEN                        = 16#10C60000#
+SPACECRAFT_CLOCK_CNT_PARTITION   = 1
+SPACECRAFT_CLOCK_START_COUNT     = "896227783.309"
+START_TIME                       = 2008-05-26T00:08:36.308
+STOP_TIME                        = 2008-05-26T20:20:18.308
+TARGET_NAME                      = MARS
+TARGET_TYPE                      = PLANET
+
+/* HISTORY DATA ELEMENTS */
+
+SOFTWARE_NAME                    = "MET-GDS"
+SOFTWARE_VERSION_ID              = "3.0.5"
+PROCESSING_HISTORY_TEXT          = "CODMAC LEVEL 2 TO LEVEL 3"
+
+/* COMMANDED PARAMETERS */
+
+OPS_TOKEN_ACTIVITY               = 16#10C6#
+INSTRUMENT_MODE_ID               = 5
+DETECTOR_ID                      = 3
+PRESSURE_THRESHOLD               = 0
+TEMPERATURE_THRESHOLD            = 0
+PERIOD_DURATION                  = 2
+PERIOD_NUMBER                    = 36352
+
+
+/* TABLE DATA ELEMENTS */
+
+OBJECT                           = TABLE
+INTERCHANGE_FORMAT               = ASCII
+  COLUMNS                        = 6
+  ROWS                           = 36352
+  ROW_BYTES                      = 97
+
+  OBJECT                         = COLUMN
+    COLUMN_NUMBER                = 1
+    NAME                         = "DURATION"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 1
+    BYTES                        = 15
+    UNIT                         = "SECONDS"
+    DESCRIPTION                  = "The absolute number of seconds since START_TIME."
+  END_OBJECT                     = COLUMN
+
+  OBJECT                         = COLUMN
+    COLUMN_NUMBER                = 2
+    NAME                         = "PRESSURE"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 17
+    BYTES                        = 15
+    UNIT                         = "PASCAL"
+    DESCRIPTION                  = "The pressure over each 2 second period."
+  END_OBJECT                     = COLUMN
+
+  OBJECT                         = COLUMN
+    COLUMN_NUMBER                = 3
+    NAME                         = "250_TEMPERATURE"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 33
+    BYTES                        = 15
+    UNIT                         = "KELVIN"
+    DESCRIPTION                  = "The temperature difference wrt PRT over each 2 second period for sensor at 
+                                   250mm."
+  END_OBJECT                     = COLUMN
+
+  OBJECT                         = COLUMN
+    COLUMN_NUMBER                = 4
+    NAME                         = "500_TEMPERATURE"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 49
+    BYTES                        = 15
+    UNIT                         = "KELVIN"
+    DESCRIPTION                  = "The temperature difference wrt PRT over each 2 second period for sensor at 
+                                   500mm."
+  END_OBJECT                     = COLUMN
+
+  OBJECT                         = COLUMN
+    COLUMN_NUMBER                = 5
+    NAME                         = "1000_TEMPERATURE"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 65
+    BYTES                        = 15
+    UNIT                         = "KELVIN"
+    DESCRIPTION                  = "The temperature difference wrt PRT over each 2 second period for sensor at 
+                                   1000mm."
+  END_OBJECT                     = COLUMN
+
+  OBJECT                         = COLUMN
+    COLUMN_NUMBER                = 6
+    NAME                         = "REFERENCE_TEMPERATURE"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 81
+    BYTES                        = 15
+    UNIT                         = "KELVIN"
+    DESCRIPTION                  = "The absolute temperature over each 2 second period for PRT sensor."
+  END_OBJECT                     = COLUMN
+
+END_OBJECT                       = TABLE
+
+END
+
+
