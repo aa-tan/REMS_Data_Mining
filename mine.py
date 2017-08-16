@@ -33,11 +33,7 @@ def match(splitList):
     for x in splitList:
         for y in splitList:
             if x[0] in y and x[1] not in y:
-                if x in matched:
-                    pass
-                else:
-                    matched.append(x)
-                    print("{}.{}\n{}.{}\n\n".format(x[0], x[1], y[0], y[1]))
+                matched.append(x)
                 break
     return matched
 
@@ -47,19 +43,14 @@ def searchCategory(splitList, path):
     for item in splitList:
         if item[1] == "LBL":
             with open(path + item[0] + "." + item[1]) as f:
-                line = f.readline()
-                while line != "":
-                    if line == "= \" PRESSURE \"":
+                for line in f:
+                    if "= \"PRESSURE\"" in line:
                         print("Pressure is found in {}".format(
                             path + item[0] + item[1]))
-                    # print(line)
-                    line = f.readline()
 
 if __name__ == '__main__':
     filePath = "./Data/"
     files = getFiles(filePath)
     splits = splitName(files)
     matched = match(splits)
-    # searchCategory(matched, filePath)
-    # print(splits)
-    # print(splitName(files))
+    searchCategory(matched, filePath)
