@@ -25,7 +25,7 @@ def toIso(epoch):  # converts UNIX Epoch to ISO8106 time
 
 def writeHeader(writeLoc, filePath):  # creates empty csv file and writes header info
     header = "t_utc,timestamp,pressure,temp_250,temp_500,temp_1000,temp_absolute\n"
-    outFileName = "{}CSVFiles/{}.csv".format(writeLoc, getFileName(filePath))
+    outFileName = "{}CSV/{}.csv".format(writeLoc, getFileName(filePath))
     with open(outFileName, "w") as f:
         f.write(header)
 
@@ -41,7 +41,7 @@ def writeData(params, filePath):  # main function for writing CSV files
     tempString = ""
     timeStart = getStartTime(params["data_path"], filePath)
     epoch = toEpoch(timeStart)
-    outFileName = "{}CSVFiles/{}.csv".format(
+    outFileName = "{}CSV/{}.csv".format(
         params["write_location"], getFileName(filePath))
     with open(filePath) as f:
         for line in f:
@@ -59,7 +59,7 @@ def writeData(params, filePath):  # main function for writing CSV files
 
 def writeJSON(params, filePath):
     out = {"action": "insert", "database": "sam.rems_temp", "records": {"type": "csv"}}
-    out["records"]["$object_id"] = "{}CSVFiles/{}.csv".format(
+    out["records"]["$object_id"] = "{}CSV/{}.csv".format(
         params["write_location"], getFileName(filePath))
     with open("{}{}.json".format(params["write_location"], getFileName(filePath)), "w") as f:
         json.dump(out, f)
@@ -67,6 +67,6 @@ def writeJSON(params, filePath):
 if __name__ == '__main__':
     # executing will create csv files for file defined in parameters.json
     # creates only for temperature and pressure
-    params = setup.loadParams()
+    params = setup.loadParams("temp")
     for count in range(len(params["file_names"]["tabs"])):
         writeData(params, params["file_names"]["tabs"][count])

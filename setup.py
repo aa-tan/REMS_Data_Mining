@@ -3,16 +3,23 @@ import json
 import re
 
 
-def loadParams():  # reads parameters file
+def loadParams(dataSet):  # reads parameters file
     params = {}
     with open("./parameters.json") as f:
 
         params = json.load(f)
-    params = getFiles(params)
-    return params
+    if dataSet == "temp":
+        params = params["temperature"]
+        params = getTempFiles(params)
+        print("loading temp")
+        return params
+    elif dataSet == "wind":
+        # params = getFiles
+        # return params["wind"]
+        pass
 
 
-def getFiles(params):  # populates params dictionary with filepaths as defined in parameters.json
+def getTempFiles(params):  # populates params dictionary with filepaths as defined in parameters.json
     for path, suDirs, files in os.walk(params["data_path"]):
         for name in files:
             match = re.search("(.+RMC_.+(...))", name)
