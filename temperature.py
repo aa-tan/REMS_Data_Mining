@@ -14,17 +14,20 @@ def getStartTime(dataPath, filePath):  # gets start time of data
                 return startTime.group(1)
 
 
-def toEpoch(iso):  # converts ISO8106 to UNIX Epoch time
+def toUnix(iso):  # converts ISO8106 to UNIX Epoch time
     parsed = dp.parse(iso)
     return parsed.strftime("%s")
 
 
-def toIso(epoch):  # converts UNIX Epoch to ISO8106 time
-    return dt.datetime.utcfromtimestamp(float(epoch)).isoformat()
+def toIso(unix):  # converts UNIX Epoch to ISO8106 time
+    return dt.datetime.utcfromtimestamp(float(unix)).isoformat()
 
 
 def writeHeader(writeLoc, filePath):  # creates empty csv file and writes header info
-    header = "t_utc,timestamp,pressure,temp_250,temp_500,temp_1000,temp_absolute\n"
+    if "Temperature" in writeLoc:
+        header = "t_utc,timestamp,pressure,temp_250,temp_500,temp_1000,temp_absolute\n"
+    elif "Wind" in writeLoc:
+        header = "t_utc,timestamp,wind_speed,wind_speed_err_pos,wind_speed_err_neg,wind_dir,wind_dir_err"
     outFileName = "{}CSV/{}.csv".format(writeLoc, getFileName(filePath))
     with open(outFileName, "w") as f:
         f.write(header)
@@ -40,17 +43,17 @@ def writeData(params, filePath):  # main function for writing CSV files
     outString = ""
     tempString = ""
     timeStart = getStartTime(params["data_path"], filePath)
-    epoch = toEpoch(timeStart)
+    unix = toUnix(timeStart)
     outFileName = "{}CSV/{}.csv".format(
         params["write_location"], getFileName(filePath))
     with open(filePath) as f:
         for line in f:
             tempString = line.split(",")
-            tempEpoch = float(epoch) + float(tempString[0])
+            tempUnix = float(unix) + float(tempString[0])
             tempString.pop(0)
-            tempIso = toIso(tempEpoch)
+            tempIso = toIso(tempUnix)
             tempString.insert(0, str(tempIso))
-            tempString.insert(0, str(tempEpoch))
+            tempString.insert(0, str(tempUnix))
             outString += ",".join(tempString)
     with open(outFileName, "a") as f:
         f.write(outString)
