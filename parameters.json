@@ -1,18 +1,8 @@
 {
-    "temperature":{
-        "write_location":"./GeneratedFiles/Temperature/",
-        "data_path":"./SampleData/Temperature/",
+        "write_location":"./GeneratedFiles/",
+        "data_path":"./SampleData/",
         "file_names":{
             "lbls":[],
             "tabs":[]
         }
-    },
-    "wind":{
-        "write_location":"./GeneratedFiles/Wind/",
-        "data_path":"./SampleData/Wind/",
-        "file_names":{
-            "lbls":[],
-            "tabs":[]
-        }
-    }
 }
