@@ -1,4 +1,4 @@
-write_headerimport re
+import re
 import dateutil.parser as dp
 import datetime as dt
 import setup
@@ -46,7 +46,7 @@ def filter_data(arr):
     return [arr[i] for i in toKeep]
 
 
-def prepare_line():
+def prepare_line(filePath):
     # removes extra indices, converts timestamp, inserts to string, of each line
     ret = ""
     with open(filePath) as f:
@@ -82,6 +82,6 @@ def write_JSON(params, filePath):
 if __name__ == '__main__':
     # executing will create csv files for file defined in parameters.json
     # creates only for temperature and pressure
-    params = setup.loadParams()
+    params = setup.load_params()
     for count in range(len(params["file_names"]["tabs"])):
         write_data(params, params["file_names"]["tabs"][count])
