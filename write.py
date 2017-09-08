@@ -2,6 +2,7 @@ import re
 import datetime as dt
 import json
 import os
+# Author: Aaron Tan
 
 
 def load_properties():
@@ -68,10 +69,11 @@ def prepare_line(filePath):
         print("Failed to Read File: {}".format(filePath))
 
 
-def write_header(writeLoc, filePath):
+def write_header(filePath):
     # creates empty csv file and writes header info
     header = "t_utc,timestamp,h_wind_speed,v_wind_speed,wind_dir,ambient_temp,humidity,pressure\n"
-    outFileName = "{}CSV/{}.csv".format(writeLoc, get_file_name(filePath))
+    outFileName = "{}CSV/{}.csv".format(
+        properties["write_location"], get_file_name(filePath))
     print("Writing header of file: {}".format(outFileName))
     try:
         with open(outFileName, "w") as f:
@@ -80,7 +82,7 @@ def write_header(writeLoc, filePath):
         print("Failed to write header")
 
 
-def write_data(properties, filePath):
+def write_data(filePath):
     # function for writing CSV files
     outString = prepare_line(filePath)
     outFileName = "{}CSV/{}.csv".format(
@@ -93,7 +95,7 @@ def write_data(properties, filePath):
         print("Failed to write CSV File")
 
 
-def write_JSON(properties, filePath):
+def write_JSON(filePath):
     # writes JSON files defining DB action
     print("Writing JSON File")
     try:
@@ -119,17 +121,18 @@ def execute():
     # writes json file for DB insertion
     print("\nStarting Mining Process\n----")
     try:
-        properties = load_properties()
         filePath = properties["file_names"]["tabs"]
         for count in range(len(properties["file_names"]["tabs"])):
-            write_header(properties["write_location"], filePath[count])
-            write_data(properties, filePath[count])
-            write_JSON(properties, filePath[count])
+            write_header(filePath[count])
+            write_data(filePath[count])
+            write_JSON(filePath[count])
 
     except:
         print("\n\n----\nAN ERROR HAS OCCURRED\n----\\nn")
 
 
+# load properties for global use
+properties = load_properties()
 if __name__ == '__main__':
-    # executing will create csv files for file defined in properties.json
+    # executing will create csv files for files defined in properties.json
     execute()
