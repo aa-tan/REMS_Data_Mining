@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import re
 import datetime as dt
 import json
