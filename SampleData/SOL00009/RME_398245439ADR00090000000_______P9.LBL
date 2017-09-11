@@ -1,0 +1,71 @@
+PDS_VERSION_ID                   = PDS3
+
+/* FILE DATA ELEMENTS */
+RECORD_TYPE                      = FIXED_LENGTH
+RECORD_BYTES                     = 152
+FILE_RECORDS                     = 5521
+
+/* POINTERS TO DATA OBJECTS */
+^REMS_ADR_CORRECTIONS_TABLE = ("RME_398245439ADR00090000000_______P9.TAB",
+                                   1 <BYTES>)
+^REMS_ADR_GEOMETRY_TABLE = ("RME_398245439ADR00090000000_______P9.TAB",
+                                   153 <BYTES>)
+
+/* IDENTIFICATION DATA ELEMENTS */
+DATA_SET_ID                      = "MSL-M-REMS-6-ADR-V1.0"
+DATA_SET_NAME                    = "MSL MARS ROVER ENV MONITORING STATION 6
+                                   ADR V1.0"
+
+INSTRUMENT_HOST_ID               = MSL
+INSTRUMENT_HOST_NAME             = "MARS SCIENCE LABORATORY"
+INSTRUMENT_ID                    = REMS
+INSTRUMENT_NAME                  = "ROVER ENVIRONMENTAL MONITORING STATION"
+INSTRUMENT_TYPE                  = ENVIRONMENTAL_STATION
+PLANET_DAY_NUMBER                = 9
+MISSION_NAME                     = "MARS SCIENCE LABORATORY"
+MISSION_PHASE_NAME               = "PRIMARY SURFACE MISSION"
+OBSERVATION_ID                   = UNK
+
+PRODUCER_INSTITUTION_NAME        = "CENTRO DE ASTROBIOLOGIA"
+PRODUCT_CREATION_TIME            = 2015-06-27T07:15:29.549
+PRODUCT_ID                       = "RME_398245439ADR00090000000_______P9"
+PRODUCT_VERSION_ID               = "V9.0"
+RELEASE_ID                       = "0009"
+PRODUCT_TYPE                     = REMS_RDR
+
+SPACECRAFT_CLOCK_START_COUNT     = "398291714"
+SPACECRAFT_CLOCK_STOP_COUNT      = "398330881"
+START_TIME                       = 2012-08-15T08:37:32.099
+STOP_TIME                        = 2012-08-15T19:30:19.462
+TARGET_NAME                      = MARS
+TARGET_TYPE                      = PLANET
+
+/* SOURCE DATA ELEMENTS */
+SOFTWARE_NAME                    = "REMS_QRS"
+SOFTWARE_VERSION_ID              = "2.2.0"
+SPICE_FILE_NAME                  = "{chronos.msl,
+                                   msl_surf_rsm_tlmenc_spanned.bc,
+                                   msl_surf_rover_tlm_spanned.bc,
+                                   msl_surf_rover_tlm.bsp}"
+
+OBJECT                           = REMS_ADR_CORRECTIONS_TABLE
+  INTERCHANGE_FORMAT             = ASCII
+  ROWS                           = 1
+  COLUMNS                        = 4
+  ROW_BYTES                      = 56
+  ROW_SUFFIX_BYTES               = 96
+  DESCRIPTION                    = "Table with correction parameters for REMS
+                                   sensors"
+  ^STRUCTURE                     = "ADR_CORRECTIONS6.FMT"
+END_OBJECT                       = REMS_ADR_CORRECTIONS_TABLE
+
+OBJECT                           = REMS_ADR_GEOMETRY_TABLE
+  INTERCHANGE_FORMAT             = ASCII
+  ROWS                           = 5520
+  COLUMNS                        = 16
+  ROW_BYTES                      = 152
+  DESCRIPTION                    = "Table with rover and sun positions"
+  ^STRUCTURE                     = "ADR_GEOM6.FMT"
+END_OBJECT                       = REMS_ADR_GEOMETRY_TABLE
+
+END
