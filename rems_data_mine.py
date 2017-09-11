@@ -3,6 +3,7 @@ import re
 import datetime as dt
 import json
 import os
+import sys
 # Author: Aaron Tan
 
 
@@ -111,6 +112,12 @@ def write_JSON(filePath):
         print("Failed to write JSON File")
 
 
+def update_path(read_path, write_path):
+    # Sets read/write path to that defined in cmd line arguments
+    properties["data_path"] = read_path
+    properties["write_location"] = write_path
+
+
 def execute():
     # main function handling mining process
     # iterates through list of file names
@@ -136,4 +143,10 @@ def execute():
 properties = load_properties()
 if __name__ == '__main__':
     # executing will create csv files for files defined in properties.json
-    execute()
+    if len(sys.argv) == 3:
+        print("Updating path to match arguments")
+        update_path(sys.argv[1], sys.argv[2])
+        execute()
+    elif len(sys.argv) == 1:
+        print("Running using properties.json paths")
+        execute()
