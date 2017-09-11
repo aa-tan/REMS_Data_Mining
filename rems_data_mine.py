@@ -17,17 +17,42 @@ def load_properties():
 
 
 def get_files():
-    # populates properties dictionary with filepaths as defined in properties.json
+    # traverses filepath defined and checks filenames in order to parse new data
+    temp = []
     for path, suDirs, files in os.walk(properties["data_path"]):
         for name in files:
             match = re.search("RME_.+RMD.+(...)", name)
             if match != None:
-                if match.group(1) == "LBL":
-                    properties["file_names"]["lbls"].append(
-                        os.path.join(path, name))
-                elif match.group(1) == "TAB":
-                    properties["file_names"]["tabs"].append(
-                        os.path.join(path, name))
+                if match.group(1) == "TAB":
+                    if check_files(name):
+                        properties["file_names"].append(
+                            os.path.join(path, name))
+
+
+def check_files(fileName):
+    # checks if filename exists in parsed_files.json.
+    # If true, ignores file as it has already been proccessed
+    # else save to parsed_files.json and return true
+    parsed_files = get_parsed_files()
+    if fileName in parsed_files:
+        return False
+    else:
+        save_files(fileName)
+        return True
+
+
+def get_parsed_files():
+    # returns list of parsed file names
+    with open("parsed_files.json", "r") as f:
+        return json.load(f)
+
+
+def save_files(fileName):
+    # updates parsed_files.json with new list
+    fileList = get_parsed_files()
+    fileList.append(fileName)
+    with open("parsed_files.json", "w") as f:
+        json.dump(fileList, f, indent=4, sort_keys=True)
 
 
 def to_unix(timestamp):
@@ -65,6 +90,8 @@ def prepare_line(filePath):
                 ret += ",".join(tempString)
                 ret += "\n"
             return ret
+    except KeyboardInterrupt:
+        sys.exit()
     except:
         print("Failed to Read File: {}".format(filePath))
 
@@ -78,6 +105,8 @@ def write_header(filePath):
     try:
         with open(outFileName, "w") as f:
             f.write(header)
+    except KeyboardInterrupt:
+        sys.exit()
     except:
         print("Failed to write header")
 
@@ -106,6 +135,8 @@ def write_JSON(filePath):
         with open("{}{}.json".format(properties["write_location"], get_file_name(filePath)), "w") as f:
             json.dump(out, f, indent=4, sort_keys=True)
         print("Success\n")
+    except KeyboardInterrupt:
+        sys.exit()
     except:
         print("Failed to write JSON File")
 
@@ -126,14 +157,14 @@ def execute():
     # format line and writes to out file
     # writes json file for DB insertion
     print("\nStarting Mining Process\n----")
-    try:
-        filePath = properties["file_names"]["tabs"]
-        for count in range(len(properties["file_names"]["tabs"])):
+    filePath = properties["file_names"]
+    for count in range(len(properties["file_names"])):
+        try:
             write_header(filePath[count])
             write_data(filePath[count])
             write_JSON(filePath[count])
-    except:
-        print("\n\n----\nAN ERROR HAS OCCURRED\n----\\nn")
+        except:
+            break
 
 
 # load properties for global use
@@ -150,5 +181,5 @@ if __name__ == '__main__':
         execute()
     elif len(sys.argv) == 1:
         print("Running using properties.json paths")
-        get_files(properties)
+        get_files()
         execute()
