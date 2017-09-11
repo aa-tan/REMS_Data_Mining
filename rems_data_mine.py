@@ -18,6 +18,7 @@ def load_properties():
 
 def get_files():
     # traverses filepath defined and checks filenames in order to parse new data
+    print("Traversing directory & getting files")
     temp = []
     for path, suDirs, files in os.walk(properties["data_path"]):
         for name in files:
@@ -37,7 +38,7 @@ def check_files(fileName):
     if fileName in parsed_files:
         return False
     else:
-        save_files(fileName)
+        # save_files(fileName)
         return True
 
 
@@ -47,10 +48,11 @@ def get_parsed_files():
         return json.load(f)
 
 
-def save_files(fileName):
+def save_files(filePath):
     # updates parsed_files.json with new list
     fileList = get_parsed_files()
-    fileList.append(fileName)
+    fileName = re.search(".+\/(.+)", filePath)
+    fileList.append(fileName.group(1))
     with open("parsed_files.json", "w") as f:
         json.dump(fileList, f, indent=4, sort_keys=True)
 
@@ -163,6 +165,7 @@ def execute():
             write_header(filePath[count])
             write_data(filePath[count])
             write_JSON(filePath[count])
+            save_files(filePath[count])
         except:
             break
 
