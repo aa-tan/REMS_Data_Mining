@@ -4,5 +4,6 @@
         "file_names":{
             "lbls":[],
             "tabs":[]
-        }
+        },
+        "database":"sam.rems_temp"
 }
