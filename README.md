@@ -5,6 +5,7 @@ This script performs the action of converting MODRDR data from the MSL dataset i
 The directory contains two files:
  - properties.json
  - rems_data_mine.<i></i>py
+ - parsed_files.json
 
 #### rems_data_mine.<i></i>py
 
@@ -19,18 +20,24 @@ Next, each file is read line by line and each line is formatted to remove un-wan
 
 Lastly, the script creates a JSON file using the filepath to the CSV as it's object id.
 
+The script will also record the names of files that have been processed (parsed_files.json) in order to prevent re-processing the file.
 
 #### properties.json
 The properties defines the write location of the CSV/JSON files and also defines the read location of the MSL dataset.
+Stores name of database to be written in JSON files.
 
-Edit the `write_location: ""` and `data_path: ""` entries with the desired path.
+Edit the `write_location: ""` and `data_path: ""` values with the desired path.
 
 Example:
-`write_location: "./CONVERTED_DATA/"`
-`data_path: "./RAW_DATA/SOL_1-50/"`
+`write_location: "./log/data_entries"`
+`data_path: "./raw_data/sol-1_50"`
 
-It is important to note that the write location must already exist and must also have a directory named `CSV` within it for the script to generate the files correctly.
+Edit the `database: ""` value to define the name of the database
 
+#### parsed_files.json
+Stores the file names of files that have been processed and should not be re-processed.
+
+For first use, make sure the JSON file contains an empty list `[]`
 
 
 ## Usage
@@ -57,4 +64,6 @@ $ ./rems_data_mine.py <read_location> <write_location>
 
 Example:
 
-`python rems_data_mine.py ./example_data/ ./log/data_entries/`
+`python rems_data_mine.py ./raw_data/sol-1_50 ./log/data_entries/`
+
+`CTRL-C` to quit process
