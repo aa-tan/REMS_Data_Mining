@@ -1,9 +1,6 @@
 {
         "write_location":"./GeneratedFiles/",
         "data_path":"./SampleData/",
-        "file_names":{
-            "lbls":[],
-            "tabs":[]
-        },
+        "file_names": [],
         "database":"sam.rems_temp"
 }
